@@ -1,8 +1,14 @@
 package ki.lucht;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 class ActionUpTest {
 
@@ -25,29 +31,31 @@ class ActionUpTest {
         assertArrayEquals(target, action.execute(initial));
     }
 
-    @Test
-    void itSuppressesImpossibleActions() {
+    @ParameterizedTest
+    @MethodSource("stateProvider")
+    void itSuppressesImpossibleActions(int[] state) {
         ActionUp action = new ActionUp();
 
-        int[] state1 = new int[]{
-                0, 1, 2,
-                3, 4, 5,
-                6, 7, 8,
-        };
-        assertNull(action.execute(state1));
+        assertNull(action.execute(state));
+    }
 
-        int[] state2 = new int[]{
-                1, 0, 3,
-                2, 5, 6,
-                7, 8, 4
-        };
-        assertNull(action.execute(state2));
-
-        int[] state3 = new int[]{
-                1, 2, 0,
-                4, 5, 6,
-                3, 7, 8
-        };
-        assertNull(action.execute(state3));
+    static Stream<int[]> stateProvider() {
+        return Stream.of(
+                new int[]{
+                        0, 1, 2,
+                        3, 4, 5,
+                        6, 7, 8,
+                },
+                new int[]{
+                        1, 0, 3,
+                        2, 5, 6,
+                        7, 8, 4
+                },
+                new int[]{
+                        1, 2, 0,
+                        4, 5, 6,
+                        3, 7, 8
+                }
+        );
     }
 }
