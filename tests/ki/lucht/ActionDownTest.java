@@ -2,8 +2,7 @@ package ki.lucht;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ActionDownTest {
 
@@ -35,20 +34,20 @@ class ActionDownTest {
                 3, 4, 5,
                 0, 7, 8,
         };
-        assertEquals(null, action.execute(state1));
+        assertNull(action.execute(state1));
 
         int[] state2 = new int[]{
                 1, 8, 3,
                 2, 5, 6,
                 7, 0, 4
         };
-        assertEquals(null, action.execute(state2));
+        assertNull(action.execute(state2));
 
         int[] state3 = new int[]{
                 1, 2, 8,
                 4, 5, 6,
                 3, 7, 0
         };
-        assertEquals(null, action.execute(state3));
+        assertNull(action.execute(state3));
     }
 }
