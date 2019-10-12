@@ -1,4 +1,4 @@
-package ki.lucht;
+package ki.lucht.actions;
 
 abstract public class AbstractAction {
     public int[] execute(int[] state) {

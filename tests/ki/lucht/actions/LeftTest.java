@@ -1,4 +1,4 @@
-package ki.lucht;
+package ki.lucht.actions;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-class ActionRightTest {
+class LeftTest {
 
     @Test
     void execute() {
@@ -21,11 +21,11 @@ class ActionRightTest {
 
         int[] target = new int[]{
                 1, 2, 3,
-                4, 5, 0,
+                0, 4, 5,
                 6, 7, 0,
         };
 
-        ActionRight action = new ActionRight();
+        Left action = new Left();
 
         assertArrayEquals(target, action.execute(initial));
     }
@@ -33,7 +33,7 @@ class ActionRightTest {
     @ParameterizedTest
     @MethodSource("stateProvider")
     void itSuppressesImpossibleActions(int[] state) {
-        ActionRight action = new ActionRight();
+        Left action = new Left();
 
         assertNull(action.execute(state));
     }
@@ -41,19 +41,19 @@ class ActionRightTest {
     static Stream<int[]> stateProvider() {
         return Stream.of(
                 new int[]{
-                        1, 2, 0,
+                        0, 1, 2,
                         3, 4, 5,
                         6, 7, 8,
                 },
                 new int[]{
                         1, 2, 3,
-                        5, 6, 0,
+                        0, 5, 6,
                         7, 8, 4
                 },
                 new int[]{
                         1, 2, 3,
                         4, 5, 6,
-                        7, 8, 0
+                        0, 7, 8
                 }
         );
     }

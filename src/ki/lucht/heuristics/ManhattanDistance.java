@@ -1,4 +1,4 @@
-package ki.lucht;
+package ki.lucht.heuristics;
 
 public class ManhattanDistance {
     public int estimateTotalCosts(int[] currentState, int[] targetState) {

@@ -1,5 +1,6 @@
-package ki.lucht;
+package ki.lucht.heuristics;
 
+import ki.lucht.heuristics.ManhattanDistance;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;

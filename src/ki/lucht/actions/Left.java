@@ -1,6 +1,6 @@
-package ki.lucht;
+package ki.lucht.actions;
 
-public class ActionLeft extends AbstractAction {
+public class Left extends AbstractAction {
     @Override
     public int[] createResultState(int[] state, int origin) {
         int[] resultState = state.clone();
