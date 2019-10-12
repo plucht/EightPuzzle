@@ -1,11 +1,11 @@
 package ki.lucht;
 
-public class ActionLeft extends AbstractAction {
+public class ActionRight extends AbstractAction {
     @Override
     public int[] createResultState(int[] state, int origin) {
         int[] resultState = state.clone();
-        int tmp = resultState[origin - 1];
-        resultState[origin - 1] = resultState[origin];
+        int tmp = resultState[origin + 1];
+        resultState[origin + 1] = resultState[origin];
         resultState[origin] = tmp;
 
         return resultState;
@@ -13,6 +13,6 @@ public class ActionLeft extends AbstractAction {
 
     @Override
     protected boolean isImpossibleAction(int origin) {
-        return origin == 0 || origin == 3 || origin == 6;
+        return origin == 2 || origin == 5 || origin == 8;
     }
 }
