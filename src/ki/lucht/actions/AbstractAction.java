@@ -1,6 +1,10 @@
 package ki.lucht.actions;
 
 abstract public class AbstractAction {
+    protected abstract int getOffset();
+
+    abstract protected boolean isImpossibleAction(int origin);
+
     public int[] execute(int[] state) {
         int origin = findOrigin(state);
 
@@ -22,7 +26,13 @@ abstract public class AbstractAction {
         return origin;
     }
 
-    abstract protected boolean isImpossibleAction(int origin);
+    public int[] createResultState(int[] state, int origin) {
+        int offset = getOffset();
+        int[] resultState = state.clone();
+        int tmp = resultState[origin + offset];
+        resultState[origin + offset] = resultState[origin];
+        resultState[origin] = tmp;
 
-    abstract public int[] createResultState(int[] state, int origin);
+        return resultState;
+    }
 }

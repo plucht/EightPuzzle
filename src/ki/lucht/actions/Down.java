@@ -2,13 +2,8 @@ package ki.lucht.actions;
 
 public class Down extends AbstractAction {
     @Override
-    public int[] createResultState(int[] state, int origin) {
-        int[] resultState = state.clone();
-        int tmp = resultState[origin + 3];
-        resultState[origin + 3] = resultState[origin];
-        resultState[origin] = tmp;
-
-        return resultState;
+    protected int getOffset() {
+        return 3;
     }
 
     @Override
