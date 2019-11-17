@@ -5,6 +5,7 @@ import ki.lucht.heuristics.Heuristic;
 import ki.lucht.heuristics.ManhattanDistance;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 class GreedySearchTest {
@@ -22,13 +23,13 @@ class GreedySearchTest {
                 getActions()
         );
 
-        int numberOfHops = solver.solve(target, target);
+        SolutionNode solution = solver.solve(target, target);
 
-        assertSame(0, numberOfHops);
+        assertSame(target, solution.state);
     }
 
     @Test
-    void itFindsTheTargetNodeIfItIsAChild() {
+    void itFindsTheTargetOneMoveAway() {
         int[] initial = new int[]{
                 1, 2, 3,
                 4, 5, 6,
@@ -46,13 +47,13 @@ class GreedySearchTest {
                 getActions()
         );
 
-        int numberOfHops = solver.solve(initial, target);
+        SolutionNode solution = solver.solve(initial, target);
 
-        assertSame(1, numberOfHops);
+        assertArrayEquals(target, solution.state);
     }
 
     @Test
-    void itFindsTheTargetNodeIfItIsAChildOfAChild() {
+    void itFindsTheTargetTwoMovesAway() {
         int[] initial = new int[]{
                 1, 2, 3,
                 4, 0, 6,
@@ -70,9 +71,9 @@ class GreedySearchTest {
                 getActions()
         );
 
-        int numberOfHops = solver.solve(initial, target);
+        SolutionNode solution = solver.solve(initial, target);
 
-        assertSame(2, numberOfHops);
+        assertArrayEquals(target, solution.state);
     }
 
     private Heuristic getHeuristic() {

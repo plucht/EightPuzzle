@@ -16,12 +16,10 @@ public class GreedySearch {
         this.actions = actions;
     }
 
-    int solve(int[] initial, int[] target) {
+    SolutionNode solve(int[] initial, int[] target) {
         if (goalTest(initial, target)) {
-            return 0;
+            return new SolutionNode(null, "Initial", initial, 0);
         }
-
-        int numberOfHops = 0;
 
         HashSet<int[]> closedList = new HashSet<>();
         PriorityQueue<SolutionNode> openList = new PriorityQueue<>();
@@ -33,11 +31,10 @@ public class GreedySearch {
             SolutionNode currentNode = openList.poll();
 
             if (goalTest(currentNode.state, target)) {
-                return numberOfHops;
+                return currentNode;
             }
 
             closedList.add(currentNode.state);
-            numberOfHops++;
 
             for (Action action : actions) {
                 if (action.isNotAllowed(currentNode.state)) {
@@ -60,7 +57,7 @@ public class GreedySearch {
             }
         }
 
-        return numberOfHops;
+        return null;
     }
 
     protected boolean goalTest(int[] currentState, int[] target) {
