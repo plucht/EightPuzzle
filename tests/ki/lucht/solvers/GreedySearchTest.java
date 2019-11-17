@@ -3,26 +3,31 @@ package ki.lucht.solvers;
 import ki.lucht.actions.*;
 import ki.lucht.heuristics.Heuristic;
 import ki.lucht.heuristics.ManhattanDistance;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 class GreedySearchTest {
+    private final int[] target = new int[]{
+            1, 2, 3,
+            4, 5, 6,
+            7, 8, 0,
+    };
 
-    @Test
-    void itTerminatesIfTheInitialNodeIsTheTarget() {
-        int[] target = new int[]{
-                1, 2, 3,
-                4, 5, 6,
-                7, 8, 0,
-        };
+    private GreedySearch solver;
 
-        GreedySearch solver = new GreedySearch(
+    @BeforeEach
+    void setUp() {
+        solver = new GreedySearch(
                 getHeuristic(),
                 getActions()
         );
+    }
 
+    @Test
+    void itTerminatesIfTheInitialNodeIsTheTarget() {
         SolutionNode solution = solver.solve(target, target);
 
         assertSame(target, solution.state);
@@ -35,17 +40,6 @@ class GreedySearchTest {
                 4, 5, 6,
                 7, 0, 8,
         };
-
-        int[] target = new int[]{
-                1, 2, 3,
-                4, 5, 6,
-                7, 8, 0,
-        };
-
-        GreedySearch solver = new GreedySearch(
-                getHeuristic(),
-                getActions()
-        );
 
         SolutionNode solution = solver.solve(initial, target);
 
@@ -60,17 +54,6 @@ class GreedySearchTest {
                 7, 5, 8,
         };
 
-        int[] target = new int[]{
-                1, 2, 3,
-                4, 5, 6,
-                7, 8, 0,
-        };
-
-        GreedySearch solver = new GreedySearch(
-                getHeuristic(),
-                getActions()
-        );
-
         SolutionNode solution = solver.solve(initial, target);
 
         assertArrayEquals(target, solution.state);
@@ -81,7 +64,7 @@ class GreedySearchTest {
     }
 
     private Action[] getActions() {
-        return new AbstractAction[] {
+        return new AbstractAction[]{
                 new Up(),
                 new Left(),
                 new Down(),
