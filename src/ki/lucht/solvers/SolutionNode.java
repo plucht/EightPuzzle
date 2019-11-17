@@ -1,5 +1,8 @@
 package ki.lucht.solvers;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 class SolutionNode implements Comparable {
     private SolutionNode parent;
     String createdByAction;
@@ -28,5 +31,28 @@ class SolutionNode implements Comparable {
         }
 
         return 1 + parent.countMoves();
+    }
+
+    public Stack<SolutionNode> getSolutionPath() {
+        Stack<SolutionNode> solutionPath = new Stack<>();
+        solutionPath.push(this);
+
+        while (null != solutionPath.peek().parent) {
+            solutionPath.push(solutionPath.peek().parent);
+        }
+
+        return solutionPath;
+    }
+
+    public ArrayList<String> getSolutionDescription() {
+        Stack<SolutionNode> solutionPath = getSolutionPath();
+        solutionPath.pop();
+
+        ArrayList<String> description = new ArrayList<>();
+        while (!solutionPath.empty()) {
+            description.add("Move " + solutionPath.pop().createdByAction);
+        }
+
+        return description;
     }
 }
