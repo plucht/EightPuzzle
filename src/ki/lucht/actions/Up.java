@@ -7,7 +7,7 @@ public class Up extends AbstractAction {
     }
 
     @Override
-    protected boolean isImpossibleAction(int origin) {
-        return origin == 0 || origin == 1 || origin == 2;
+    protected int[] getInvalidOrigins() {
+        return new int[]{0, 1, 2};
     }
 }

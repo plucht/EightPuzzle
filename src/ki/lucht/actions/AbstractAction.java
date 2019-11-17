@@ -1,18 +1,25 @@
 package ki.lucht.actions;
 
+import java.util.Arrays;
+
 abstract public class AbstractAction implements Action {
     protected abstract int getOffset();
 
-    abstract protected boolean isImpossibleAction(int origin);
+    abstract protected int[] getInvalidOrigins();
 
     public int[] generate(int[] state) {
-        int origin = findOrigin(state);
-
-        if (isImpossibleAction(origin)) {
+        if (isNotAllowed(state)) {
             return null;
         }
 
-        return createResultState(state, origin);
+        return createResultState(state, findOrigin(state));
+    }
+
+    public boolean isNotAllowed(int[] state) {
+        int origin = findOrigin(state);
+        int[] invalidOrigins = getInvalidOrigins();
+
+        return Arrays.stream(invalidOrigins).anyMatch(i -> i == origin);
     }
 
     private int findOrigin(int[] state) {

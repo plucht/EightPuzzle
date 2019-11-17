@@ -40,10 +40,17 @@ public class GreedySearch {
             numberOfHops++;
 
             for (Action action : actions) {
-                SolutionNode generatedNode = generateNode(target, currentNode, action);
-                if (null == generatedNode) {
+                if (action.isNotAllowed(currentNode.state)) {
                     continue;
                 }
+
+                int[] generatedState = action.generate(currentNode.state);
+                SolutionNode generatedNode = new SolutionNode(
+                        currentNode,
+                        action.toString(),
+                        generatedState,
+                        heuristic.estimateCosts(generatedState, target)
+                );
 
                 if (!openList.contains(generatedNode) && !closedList.contains(generatedNode.state)) {
                     openList.add(generatedNode);
@@ -54,21 +61,6 @@ public class GreedySearch {
         }
 
         return numberOfHops;
-    }
-
-    private SolutionNode generateNode(int[] target, SolutionNode currentNode, Action action) {
-        int[] generatedState = action.generate(currentNode.state);
-
-        if (null == generatedState) {
-            return null;
-        }
-
-        return new SolutionNode(
-                currentNode,
-                action.toString(),
-                generatedState,
-                heuristic.estimateCosts(generatedState, target)
-        );
     }
 
     protected boolean goalTest(int[] currentState, int[] target) {

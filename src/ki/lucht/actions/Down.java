@@ -7,7 +7,7 @@ public class Down extends AbstractAction {
     }
 
     @Override
-    protected boolean isImpossibleAction(int origin) {
-        return origin == 6 || origin == 7 || origin == 8;
+    protected int[] getInvalidOrigins() {
+        return new int[]{6, 7, 8};
     }
 }

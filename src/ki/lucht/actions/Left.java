@@ -7,7 +7,7 @@ public class Left extends AbstractAction {
     }
 
     @Override
-    protected boolean isImpossibleAction(int origin) {
-        return origin == 0 || origin == 3 || origin == 6;
+    protected int[] getInvalidOrigins() {
+        return new int[]{0, 3, 6};
     }
 }
