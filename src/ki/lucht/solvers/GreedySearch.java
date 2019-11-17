@@ -10,11 +10,13 @@ import java.util.PriorityQueue;
 public class GreedySearch {
 
     class Node implements Comparable {
+        private Node parent;
         String createdByAction;
         int[] state;
         private int distance;
 
-        public Node(String createdByAction, int[] state, int distance) {
+        public Node(Node parent, String createdByAction, int[] state, int distance) {
+            this.parent = parent;
             this.createdByAction = createdByAction;
             this.state = state;
             this.distance = distance;
@@ -49,7 +51,7 @@ public class GreedySearch {
         HashSet<int[]> closedList = new HashSet<>();
         PriorityQueue<Node> openList = new PriorityQueue<>();
         openList.add(
-                new Node("Initial", initial, heuristic.estimateTotalCosts(initial, target))
+                new Node(null, "Initial", initial, heuristic.estimateTotalCosts(initial, target))
         );
 
         while (!openList.isEmpty()) {
@@ -70,6 +72,7 @@ public class GreedySearch {
                 }
 
                 Node generatedNode = new Node(
+                        currentNode,
                         action.toString(),
                         generatedState,
                         heuristic.estimateTotalCosts(generatedState, target)
