@@ -9,19 +9,18 @@ import java.util.PriorityQueue;
 
 public class GreedySearch {
 
-    ManhattanDistance heuristic = new ManhattanDistance();
+    protected ManhattanDistance heuristic;
+    protected AbstractAction[] actions;
+
+    GreedySearch(ManhattanDistance heuristic, AbstractAction[] actions) {
+        this.heuristic = heuristic;
+        this.actions = actions;
+    }
 
     int solve(int[] initial, int[] target) {
         if (goalTest(initial, target)) {
             return 0;
         }
-
-        AbstractAction[] actions = new AbstractAction[] {
-                new Down(),
-                new Up(),
-                new Left(),
-                new Right(),
-        };
 
         int numberOfHops = 0;
 

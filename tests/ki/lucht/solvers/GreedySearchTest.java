@@ -1,5 +1,7 @@
 package ki.lucht.solvers;
 
+import ki.lucht.actions.*;
+import ki.lucht.heuristics.ManhattanDistance;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -14,7 +16,10 @@ class GreedySearchTest {
                 7, 8, 0,
         };
 
-        GreedySearch solver = new GreedySearch();
+        GreedySearch solver = new GreedySearch(
+                getHeuristic(),
+                getActions()
+        );
 
         int numberOfHops = solver.solve(target, target);
 
@@ -35,7 +40,10 @@ class GreedySearchTest {
                 7, 8, 0,
         };
 
-        GreedySearch solver = new GreedySearch();
+        GreedySearch solver = new GreedySearch(
+                getHeuristic(),
+                getActions()
+        );
 
         int numberOfHops = solver.solve(initial, target);
 
@@ -56,10 +64,26 @@ class GreedySearchTest {
                 7, 8, 0,
         };
 
-        GreedySearch solver = new GreedySearch();
+        GreedySearch solver = new GreedySearch(
+                getHeuristic(),
+                getActions()
+        );
 
         int numberOfHops = solver.solve(initial, target);
 
         assertSame(2, numberOfHops);
+    }
+
+    private ManhattanDistance getHeuristic() {
+        return new ManhattanDistance();
+    }
+
+    private AbstractAction[] getActions() {
+        return new AbstractAction[] {
+                new Up(),
+                new Left(),
+                new Down(),
+                new Right(),
+        };
     }
 }
