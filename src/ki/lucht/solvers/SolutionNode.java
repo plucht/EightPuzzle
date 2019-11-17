@@ -21,4 +21,12 @@ class SolutionNode implements Comparable {
 
         return Integer.compare(distance, ((SolutionNode)o).distance);
     }
+
+    public int countMoves() {
+        if (null == parent) {
+            return 0;
+        }
+
+        return 1 + parent.countMoves();
+    }
 }
