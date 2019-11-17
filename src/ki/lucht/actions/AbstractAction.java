@@ -1,11 +1,11 @@
 package ki.lucht.actions;
 
-abstract public class AbstractAction {
+abstract public class AbstractAction implements Action {
     protected abstract int getOffset();
 
     abstract protected boolean isImpossibleAction(int origin);
 
-    public int[] execute(int[] state) {
+    public int[] generate(int[] state) {
         int origin = findOrigin(state);
 
         if (isImpossibleAction(origin)) {

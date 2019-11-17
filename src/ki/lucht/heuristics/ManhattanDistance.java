@@ -1,7 +1,7 @@
 package ki.lucht.heuristics;
 
-public class ManhattanDistance {
-    public int estimateTotalCosts(int[] currentState, int[] targetState) {
+public class ManhattanDistance implements Heuristic {
+    public int estimateCosts(int[] currentState, int[] targetState) {
         int totalCosts = 0;
         for (int i = 0; i < 9; i++) {
             totalCosts += estimateField(currentState, targetState, i);

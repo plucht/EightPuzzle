@@ -1,6 +1,7 @@
 package ki.lucht.solvers;
 
 import ki.lucht.actions.*;
+import ki.lucht.heuristics.Heuristic;
 import ki.lucht.heuristics.ManhattanDistance;
 import org.junit.jupiter.api.Test;
 
@@ -74,11 +75,11 @@ class GreedySearchTest {
         assertSame(2, numberOfHops);
     }
 
-    private ManhattanDistance getHeuristic() {
+    private Heuristic getHeuristic() {
         return new ManhattanDistance();
     }
 
-    private AbstractAction[] getActions() {
+    private Action[] getActions() {
         return new AbstractAction[] {
                 new Up(),
                 new Left(),

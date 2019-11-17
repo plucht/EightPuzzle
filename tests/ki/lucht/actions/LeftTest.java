@@ -27,7 +27,7 @@ class LeftTest {
 
         Left action = new Left();
 
-        assertArrayEquals(target, action.execute(initial));
+        assertArrayEquals(target, action.generate(initial));
     }
 
     @ParameterizedTest
@@ -35,7 +35,7 @@ class LeftTest {
     void itSuppressesImpossibleActions(int[] state) {
         Left action = new Left();
 
-        assertNull(action.execute(state));
+        assertNull(action.generate(state));
     }
 
     static Stream<int[]> stateProvider() {

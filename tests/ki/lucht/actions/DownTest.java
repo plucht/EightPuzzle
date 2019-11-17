@@ -27,7 +27,7 @@ class DownTest {
 
         Down action = new Down();
 
-        assertArrayEquals(target, action.execute(initial));
+        assertArrayEquals(target, action.generate(initial));
     }
 
     @ParameterizedTest
@@ -35,7 +35,7 @@ class DownTest {
     void itSuppressesImpossibleActions(int[] state) {
         Down action = new Down();
 
-        assertNull(action.execute(state));
+        assertNull(action.generate(state));
     }
 
     static Stream<int[]> stateProvider() {

@@ -1,6 +1,5 @@
 package ki.lucht.heuristics;
 
-import ki.lucht.heuristics.ManhattanDistance;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -50,6 +49,6 @@ class ManhattanDistanceTest {
     public void itEstimatesCostsToTargetState() {
         ManhattanDistance heuristic = new ManhattanDistance();
 
-        assertEquals(1, heuristic.estimateTotalCosts(initial, target));
+        assertEquals(1, heuristic.estimateCosts(initial, target));
     }
 }

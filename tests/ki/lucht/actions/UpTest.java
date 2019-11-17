@@ -28,7 +28,7 @@ class UpTest {
 
         Up action = new Up();
 
-        assertArrayEquals(target, action.execute(initial));
+        assertArrayEquals(target, action.generate(initial));
     }
 
     @ParameterizedTest
@@ -36,7 +36,7 @@ class UpTest {
     void itSuppressesImpossibleActions(int[] state) {
         Up action = new Up();
 
-        assertNull(action.execute(state));
+        assertNull(action.generate(state));
     }
 
     static Stream<int[]> stateProvider() {

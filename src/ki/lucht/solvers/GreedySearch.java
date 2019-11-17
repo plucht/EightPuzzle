@@ -1,18 +1,17 @@
 package ki.lucht.solvers;
 
 import ki.lucht.actions.*;
-import ki.lucht.heuristics.ManhattanDistance;
+import ki.lucht.heuristics.Heuristic;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
 public class GreedySearch {
+    protected Heuristic heuristic;
+    protected Action[] actions;
 
-    protected ManhattanDistance heuristic;
-    protected AbstractAction[] actions;
-
-    GreedySearch(ManhattanDistance heuristic, AbstractAction[] actions) {
+    GreedySearch(Heuristic heuristic, Action[] actions) {
         this.heuristic = heuristic;
         this.actions = actions;
     }
@@ -27,7 +26,7 @@ public class GreedySearch {
         HashSet<int[]> closedList = new HashSet<>();
         PriorityQueue<SolutionNode> openList = new PriorityQueue<>();
         openList.add(
-                new SolutionNode(null, "Initial", initial, heuristic.estimateTotalCosts(initial, target))
+                new SolutionNode(null, "Initial", initial, heuristic.estimateCosts(initial, target))
         );
 
         while (!openList.isEmpty()) {
@@ -40,8 +39,8 @@ public class GreedySearch {
             closedList.add(currentNode.state);
             numberOfHops++;
 
-            for (AbstractAction action: actions) {
-                int[] generatedState = action.execute(currentNode.state);
+            for (Action action: actions) {
+                int[] generatedState = action.generate(currentNode.state);
 
                 if (null == generatedState) {
                     continue;
@@ -51,7 +50,7 @@ public class GreedySearch {
                         currentNode,
                         action.toString(),
                         generatedState,
-                        heuristic.estimateTotalCosts(generatedState, target)
+                        heuristic.estimateCosts(generatedState, target)
                 );
 
                 if (!openList.contains(generatedNode) && !closedList.contains(generatedState)) {
