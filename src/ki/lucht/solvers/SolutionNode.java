@@ -3,10 +3,10 @@ package ki.lucht.solvers;
 import java.util.ArrayList;
 import java.util.Stack;
 
-class SolutionNode implements Comparable {
+public class SolutionNode implements Comparable {
     private SolutionNode parent;
-    String createdByAction;
-    int[] state;
+    public String createdByAction;
+    public int[] state;
     int distance;
 
     public SolutionNode(SolutionNode parent, String createdByAction, int[] state, int distance) {

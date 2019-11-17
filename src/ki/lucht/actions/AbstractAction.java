@@ -42,4 +42,9 @@ abstract public class AbstractAction implements Action {
 
         return resultState;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
 }

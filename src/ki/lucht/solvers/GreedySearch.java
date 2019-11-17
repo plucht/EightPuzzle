@@ -11,12 +11,12 @@ public class GreedySearch {
     protected Heuristic heuristic;
     protected Action[] actions;
 
-    GreedySearch(Heuristic heuristic, Action[] actions) {
+    public GreedySearch(Heuristic heuristic, Action[] actions) {
         this.heuristic = heuristic;
         this.actions = actions;
     }
 
-    SolutionNode solve(int[] initial, int[] target) {
+    public SolutionNode solve(int[] initial, int[] target) {
         if (goalTest(initial, target)) {
             return new SolutionNode(null, "Initial", initial, 0);
         }
