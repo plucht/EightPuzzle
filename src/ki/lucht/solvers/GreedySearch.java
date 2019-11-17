@@ -9,29 +9,6 @@ import java.util.PriorityQueue;
 
 public class GreedySearch {
 
-    class Node implements Comparable {
-        private Node parent;
-        String createdByAction;
-        int[] state;
-        private int distance;
-
-        public Node(Node parent, String createdByAction, int[] state, int distance) {
-            this.parent = parent;
-            this.createdByAction = createdByAction;
-            this.state = state;
-            this.distance = distance;
-        }
-
-        @Override
-        public int compareTo(Object o) {
-            if (!(o instanceof Node)) {
-                throw new IllegalArgumentException("Object of type [Node] can only be compared with object of type [Node].");
-            }
-
-            return Integer.compare(distance, ((Node)o).distance);
-        }
-    }
-
     ManhattanDistance heuristic = new ManhattanDistance();
 
     int solve(int[] initial, int[] target) {
@@ -49,13 +26,13 @@ public class GreedySearch {
         int numberOfHops = 0;
 
         HashSet<int[]> closedList = new HashSet<>();
-        PriorityQueue<Node> openList = new PriorityQueue<>();
+        PriorityQueue<SolutionNode> openList = new PriorityQueue<>();
         openList.add(
-                new Node(null, "Initial", initial, heuristic.estimateTotalCosts(initial, target))
+                new SolutionNode(null, "Initial", initial, heuristic.estimateTotalCosts(initial, target))
         );
 
         while (!openList.isEmpty()) {
-            Node currentNode = openList.poll();
+            SolutionNode currentNode = openList.poll();
 
             if (goalTest(currentNode.state, target)) {
                 return numberOfHops;
@@ -71,7 +48,7 @@ public class GreedySearch {
                     continue;
                 }
 
-                Node generatedNode = new Node(
+                SolutionNode generatedNode = new SolutionNode(
                         currentNode,
                         action.toString(),
                         generatedState,
