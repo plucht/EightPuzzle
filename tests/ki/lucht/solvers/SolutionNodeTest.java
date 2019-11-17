@@ -58,12 +58,4 @@ class SolutionNodeTest {
 
         assertSame(5, target.getSolutionPath().size());
     }
-
-    @Test
-    void getSolutionDescriptionForRoot() {
-        SolutionNode root = new SolutionNode(null, "irrelevant", new int[]{1, 0, 2}, 1);
-        SolutionNode target = new SolutionNode(root, "right", new int[]{1, 2, 0}, 0);
-
-        assertEquals("Move right", target.getSolutionDescription().get(0));
-    }
 }

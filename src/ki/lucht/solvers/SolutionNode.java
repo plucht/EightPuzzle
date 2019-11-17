@@ -43,16 +43,4 @@ class SolutionNode implements Comparable {
 
         return solutionPath;
     }
-
-    public ArrayList<String> getSolutionDescription() {
-        Stack<SolutionNode> solutionPath = getSolutionPath();
-        solutionPath.pop();
-
-        ArrayList<String> description = new ArrayList<>();
-        while (!solutionPath.empty()) {
-            description.add("Move " + solutionPath.pop().createdByAction);
-        }
-
-        return description;
-    }
 }
