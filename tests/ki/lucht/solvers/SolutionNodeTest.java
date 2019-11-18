@@ -2,8 +2,10 @@ package ki.lucht.solvers;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionNodeTest {
 
@@ -57,5 +59,21 @@ class SolutionNodeTest {
         SolutionNode target = new SolutionNode(closestToTarget, "irrelevant", null, 0);
 
         assertSame(5, target.getSolutionPath().size());
+    }
+
+    @Test
+    void hashSetContains() {
+        HashSet<SolutionNode> set = new HashSet<>();
+        set.add(new SolutionNode(null, "", new int[]{1, 2, 3}, 0));
+
+        assertTrue(set.contains(new SolutionNode(null, "", new int[]{1, 2, 3}, 0)));
+    }
+
+    @Test
+    void priorityQueueContains() {
+        PriorityQueue<SolutionNode> queue = new PriorityQueue<>();
+        queue.add(new SolutionNode(null, "", new int[]{1, 2, 3}, 0));
+
+        assertTrue(queue.contains(new SolutionNode(null, "", new int[]{1, 2, 3}, 0)));
     }
 }

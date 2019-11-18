@@ -1,6 +1,6 @@
 package ki.lucht.solvers;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class SolutionNode implements Comparable {
@@ -22,7 +22,33 @@ public class SolutionNode implements Comparable {
             throw new IllegalArgumentException("Object of type [Node] can only be compared with object of type [Node].");
         }
 
-        return Integer.compare(distance, ((SolutionNode)o).distance);
+        return Integer.compare(distance, ((SolutionNode) o).distance);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof SolutionNode)) {
+            return false;
+        }
+
+        SolutionNode otherNode = (SolutionNode) obj;
+
+        if (state.length != otherNode.state.length) {
+            return false;
+        }
+
+        for (int i = 0; i < state.length; i++) {
+            if (state[i] != otherNode.state[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(state);
     }
 
     public int countMoves() {
