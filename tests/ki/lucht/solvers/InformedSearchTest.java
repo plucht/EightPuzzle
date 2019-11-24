@@ -9,18 +9,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-class GreedySearchTest {
+class InformedSearchTest {
     private final int[] target = new int[]{
             1, 2, 3,
             4, 5, 6,
             7, 8, 0,
     };
 
-    private GreedySearch solver;
+    private InformedSearch solver;
 
     @BeforeEach
     void setUp() {
-        solver = new GreedySearch(
+        solver = new InformedSearch(
                 getHeuristic(),
                 getActions()
         );
