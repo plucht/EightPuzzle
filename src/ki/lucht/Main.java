@@ -2,7 +2,7 @@ package ki.lucht;
 
 import ki.lucht.actions.*;
 import ki.lucht.heuristics.ManhattanDistance;
-import ki.lucht.solvers.GreedySearch;
+import ki.lucht.solvers.InformedSearch;
 import ki.lucht.solvers.SolutionNode;
 
 import java.io.BufferedReader;
@@ -23,7 +23,7 @@ public class Main {
     }
 
     private static SolutionNode getSolutionNode(int[] initial) {
-        GreedySearch solver = new GreedySearch(
+        InformedSearch solver = new InformedSearch(
                 new ManhattanDistance(),
                 new AbstractAction[]{
                         new Left(),

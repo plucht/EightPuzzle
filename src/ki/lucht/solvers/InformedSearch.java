@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
-public class GreedySearch {
+public class InformedSearch {
     protected Heuristic heuristic;
     protected Action[] actions;
 
-    public GreedySearch(Heuristic heuristic, Action[] actions) {
+    public InformedSearch(Heuristic heuristic, Action[] actions) {
         this.heuristic = heuristic;
         this.actions = actions;
     }
