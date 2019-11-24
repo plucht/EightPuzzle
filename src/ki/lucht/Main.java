@@ -9,29 +9,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        int[] target = new int[]{
-                1, 2, 3,
-                4, 5, 6,
-                7, 8, 0
-        };
+        int[] initial = readStateFromInput();
 
-        int[] initial;
-        if (args.length == 1 && args[0].equals("--demo")) {
-            initial = new int[]{
-                    1, 2, 3,
-                    4, 0, 6,
-                    7, 5, 8
-            };
-        } else {
-            initial = readStateFromInput();
-        }
+        SolutionNode solution = getSolutionNode(initial);
 
+        renderSolution(initial, solution);
+    }
 
+    private static SolutionNode getSolutionNode(int[] initial) {
         GreedySearch solver = new GreedySearch(
                 new ManhattanDistance(),
                 new AbstractAction[]{
@@ -42,7 +33,16 @@ public class Main {
                 }
         );
 
-        SolutionNode solution = solver.solve(initial, target);
+        int[] target = new int[]{
+                1, 2, 3,
+                4, 5, 6,
+                7, 8, 0
+        };
+
+        return solver.solve(initial, target);
+    }
+
+    private static void renderSolution(int[] initial, SolutionNode solution) {
         if (null == solution) {
             System.out.println("No solution found. :see_no_evil:");
             System.exit(0);
@@ -63,20 +63,32 @@ public class Main {
 
     private static int[] readStateFromInput() throws IOException {
         ArrayList<Integer> initialStateInput = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            System.out.println("Please configure field at position " + i + ": ");
-            BufferedReader reader = new BufferedReader(new InputStreamReader((System.in)));
-            int input = Integer.parseInt(reader.readLine());
+        for (int i = 0; i < 3; i++) {
+            System.out.print("Please configure row #" + (i+1) + ": ");
 
-            if (initialStateInput.contains(input)) {
-                System.out.println("Please use each number only once.");
-                System.exit(0);
+            BufferedReader reader = new BufferedReader(new InputStreamReader((System.in)));
+            String[] tokens = reader.readLine().split(" ");
+            int[] row = Arrays.stream(tokens)
+                    .map(String::trim)
+                    .filter(s -> s.length() == 1)
+                    .mapToInt(Integer::parseInt)
+                    .filter(number -> number >= 0 && number <= 8)
+                    .toArray();
+
+            if (row.length != 3) {
+                i -= 1;
+                continue;
             }
 
-            initialStateInput.add(input);
+            initialStateInput.add(row[0]);
+            initialStateInput.add(row[1]);
+            initialStateInput.add(row[2]);
         }
+        System.out.println("Processing ...");
 
-        return initialStateInput.stream().mapToInt(i -> i).toArray();
+        return initialStateInput.stream()
+                .mapToInt(i -> i)
+                .toArray();
     }
 
     private static String renderState(int[] matrix) {

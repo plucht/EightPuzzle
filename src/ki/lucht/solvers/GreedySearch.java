@@ -18,12 +18,12 @@ public class GreedySearch {
 
     public SolutionNode solve(int[] initial, int[] target) {
         if (goalTest(initial, target)) {
-            return new SolutionNode(null, "Initial", initial, 0);
+            return new SolutionNode(null, "Initial", initial, 0, 0);
         }
 
         HashSet<SolutionNode> closedList = new HashSet<>();
         PriorityQueue<SolutionNode> openList = new PriorityQueue<>();
-        openList.add(new SolutionNode(null, "Initial", initial, heuristic.estimateCosts(initial, target)));
+        openList.add(new SolutionNode(null, "Initial", initial, heuristic.estimateCosts(initial, target), 0));
 
         while (!openList.isEmpty()) {
             SolutionNode currentNode = openList.poll();
@@ -40,11 +40,13 @@ public class GreedySearch {
                 }
 
                 int[] generatedState = action.generate(currentNode.state);
+                int depth = currentNode.depth + 1;
                 SolutionNode generatedNode = new SolutionNode(
                         currentNode,
                         action.toString(),
                         generatedState,
-                        heuristic.estimateCosts(generatedState, target)
+                        depth + heuristic.estimateCosts(generatedState, target),
+                        depth
                 );
 
                 if (!openList.contains(generatedNode) && !closedList.contains(generatedNode)) {
@@ -53,7 +55,6 @@ public class GreedySearch {
                     openList.add(generatedNode);
                 }
             }
-            System.out.println("closed list: " + closedList.size() + " open list: " + openList.size());
         }
 
         return null;

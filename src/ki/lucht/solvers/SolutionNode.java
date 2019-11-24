@@ -8,12 +8,14 @@ public class SolutionNode implements Comparable {
     public String createdByAction;
     public int[] state;
     int distance;
+    public int depth;
 
-    public SolutionNode(SolutionNode parent, String createdByAction, int[] state, int distance) {
+    public SolutionNode(SolutionNode parent, String createdByAction, int[] state, int distance, int depth) {
         this.parent = parent;
         this.createdByAction = createdByAction;
         this.state = state;
         this.distance = distance;
+        this.depth = depth;
     }
 
     @Override
